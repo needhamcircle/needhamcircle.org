@@ -6,12 +6,12 @@ permalink: /submit
 
 <h2>Submit</h2>
 
-<div class="thanks" role="status" hidden data-thanks>Thanks! Your submission has been received and is awaiting approval.</div>
+<div class="thanks" tabindex="-1" hidden data-thanks>Thanks! Your submission has been received and is awaiting approval.</div>
 
 <div data-form-region>
-  <div class="error-summary" role="alert" hidden data-error-summary>There was a problem with your submission. Please check the fields and try again.</div>
+  <div class="error-summary" tabindex="-1" hidden data-error-summary>There was a problem with your submission. Please check the fields and try again.</div>
 
-  <form data-remote data-endpoint="{{ site.submit_endpoint }}">
+  <form method="post" data-remote data-endpoint="{{ site.submit_endpoint }}">
     <div class="field">
       <label for="title">Event Title <span class="required-marker" aria-hidden="true">*</span></label>
       <input id="title" type="text" name="title" required maxlength="200">

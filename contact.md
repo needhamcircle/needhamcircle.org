@@ -6,14 +6,14 @@ permalink: /contact
 
 <h2>Contact</h2>
 
-<div class="thanks" role="status" hidden data-thanks>Thanks for reaching out! Your message has been sent to the organizers, and we'll be in touch.</div>
+<div class="thanks" tabindex="-1" hidden data-thanks>Thanks for reaching out! Your message has been sent to the organizers, and we'll be in touch.</div>
 
 <div data-form-region>
   <p>Have a question, an idea, or want to get involved? Send the organizers a note and we'll get back to you.</p>
 
-  <div class="error-summary" role="alert" hidden data-error-summary>There was a problem sending your message. Please check the fields and try again.</div>
+  <div class="error-summary" tabindex="-1" hidden data-error-summary>There was a problem sending your message. Please check the fields and try again.</div>
 
-  <form data-remote data-endpoint="{{ site.contact_endpoint }}">
+  <form method="post" data-remote data-endpoint="{{ site.contact_endpoint }}">
     <div class="field">
       <label for="name">Name <span class="required-marker" aria-hidden="true">*</span></label>
       <input id="name" type="text" name="name" required maxlength="100">

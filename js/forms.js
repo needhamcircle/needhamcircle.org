@@ -1,6 +1,8 @@
 // Submits the event and contact forms to their Cloud Run functions as JSON
 // and renders the outcome in place: the thanks banner on success, per-field
-// errors on validation failure, and the error summary otherwise.
+// errors on validation failure, and the error summary otherwise. Focus moves
+// to whichever message is shown, so screen readers announce the outcome and
+// keyboard users continue from it rather than from the page body.
 (function () {
   "use strict";
 
@@ -24,6 +26,7 @@
       if (!summary) return;
       if (text) summary.textContent = text;
       summary.hidden = false;
+      summary.focus({ preventScroll: true });
       summary.scrollIntoView({ block: "nearest" });
     }
 
@@ -45,6 +48,9 @@
     form.addEventListener("submit", function (event) {
       event.preventDefault();
       clearErrors();
+
+      // A disabled submit button blocks both clicks and Enter in a field, so
+      // the form can't be sent again while this request is in flight.
       if (button) button.disabled = true;
 
       var payload = {};
@@ -59,7 +65,10 @@
           return response.json().catch(function () { return {}; }).then(function (body) {
             if (response.ok) {
               if (region) region.hidden = true;
-              if (thanks) thanks.hidden = false;
+              if (thanks) {
+                thanks.hidden = false;
+                thanks.focus({ preventScroll: true });
+              }
               window.scrollTo({ top: 0 });
             } else if (response.status === 422 && body.errors) {
               showFieldErrors(body.errors);

@@ -1165,12 +1165,19 @@ button[type="submit"] {
   transition: background 0.15s ease, transform 0.05s ease;
 }
 
-button[type="submit"]:hover {
+button[type="submit"]:hover:not(:disabled) {
   background: var(--mid);
 }
 
-button[type="submit"]:active {
+button[type="submit"]:active:not(:disabled) {
   transform: translateY(1px);
+}
+
+/* The submit button is only disabled while its form's request is in flight
+   (js/forms.js), so it shows a busy cursor. */
+button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: progress;
 }
 
 .error-summary {
@@ -1205,6 +1212,13 @@ button[type="submit"]:active {
   border-radius: 0 6px 6px 0;
   color: var(--success);
   font-weight: 500;
+}
+
+/* Both messages take focus when a submission shows them (js/forms.js). */
+.error-summary:focus-visible,
+.thanks:focus-visible {
+  outline: 2px solid var(--navy);
+  outline-offset: 2px;
 }
 
 .submit-disclaimer {
